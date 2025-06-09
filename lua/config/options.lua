@@ -3,7 +3,7 @@
 -- Add any additional options here
 -- Turn off autoformat globally
 --
--- vim.g.autoformat = false
+vim.g.autoformat = false
 -- Configure clipboard
 vim.g.clipboard = {
   name = "xclip",
@@ -22,10 +22,12 @@ vim.opt.smoothscroll = false
 -- Define filetypes that should have autoformat enabled
 local autoformat_filetypes = {
   "javascript",
-  "typescript", 
+  "typescript",
   "javascriptreact",
   "typescriptreact",
-  "terraform"
+  "terraform",
+  "cpp",
+  "hpp"
 }
 
 -- Enable autoformat only for specified filetypes
