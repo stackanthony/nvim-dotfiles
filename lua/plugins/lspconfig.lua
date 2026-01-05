@@ -5,7 +5,7 @@ return {
       opts.servers = opts.servers or {}
       
       -- Disable ruff
-      opts.servers.ruff_lsp = {
+      opts.servers.ruff = {
         enabled = false,
       }
       
