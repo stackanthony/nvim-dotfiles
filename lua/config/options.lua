@@ -27,7 +27,7 @@ local autoformat_filetypes = {
   "typescriptreact",
   "terraform",
   "cpp",
-  "hpp"
+  "hpp",
 }
 
 -- Enable autoformat only for specified filetypes
@@ -37,3 +37,39 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.b.autoformat = true
   end,
 })
+
+-- Auto-reload files when changed externally
+vim.opt.autoread = true
+
+-- Trigger autoread when files change on disk
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Notification when file changes
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  pattern = "*",
+  callback = function()
+    vim.notify("File changed on disk. Buffer reloaded.", vim.log.levels.WARN)
+  end,
+})
+return {
+  "nvim-telescope/telescope.nvim",
+  opts = {
+    -- defaults = {
+    --   file_ignore_patterns = { "^.git/" }, -- still ignore .git folder
+    -- },
+    pickers = {
+      find_files = {
+        hidden = true, -- Show hidden files
+        -- Or use this for more control:
+        -- find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+      },
+    },
+  },
+}
